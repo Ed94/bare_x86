@@ -12,9 +12,27 @@
 int	VideoService
 %endmacro
 
+%macro	Video_SetGraphicsMode_320x200 0
+	mov	AH, Video_SetMode
+	mov	AL, VideoMode_Graphics_320x200
+int	VideoService
+%endmacro
+
+%macro	Video_SetGraphicsMode_640x200 0
+	mov	AH, Video_SetMode
+	mov	AL, VideoMode_Graphics_640x200
+int	VideoService
+%endmacro
+
 ;=============================================================================================================
 ; Routines
 ;=============================================================================================================
+
+%macro DumpOut 2
+	mov	BX, %1
+	mov	DX, %2
+call	out_Dump
+%endmacro
 
 %macro Hex16_ToString 2
 	mov	DX, %1
@@ -25,10 +43,9 @@ call	h16_toString
 %endmacro
 
 %macro Char_Out 1
-	mov	AX, %1
-	push	AX
-call	out_char
-	pop	AX
+	mov	AH, Video_TeleType
+	mov	AL, %1
+int	VideoService
 %endmacro
 
 %macro String_Out 2

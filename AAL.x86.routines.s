@@ -7,6 +7,67 @@
 ; Routines
 ;=============================================================================================================
 
+out_Dump:
+; Args:
+; BX = StartLocation
+; CX = ByteCount
+%define StartLocation	BX
+%define ByteCount	DX
+	push 	BX
+	push	SI
+	xor 	SI, SI
+
+.loop:
+	cmp	SI, ByteCount
+	je	.break
+
+
+	push 	BX
+	push 	DX
+	push 	SI
+	mov	AX, StartLocation
+	add	AX, SI
+Hex16_ToString	AX, .HexStr
+String_Out	.HexStr, 4
+	pop	SI
+	pop 	DX
+	pop	BX
+Char_Out	' '
+
+;	Get next set of byte, organize to big endian.
+	mov	AH, [StartLocation + SI]
+	add	SI, 1
+	mov	AL, [StartLocation + SI]
+	mov	[.HexNum], AX
+
+	push 	BX
+	push 	DX
+	push 	SI
+Hex16_ToString	[.HexNum], .HexStr
+String_Out	.HexStr, 4
+	pop 	SI
+	pop 	DX
+	pop 	BX
+Char_Out	' '
+
+	mov	AH, BIOS_Wait
+	mov	CX, 0x02
+int	SystemService
+
+	inc	SI
+	jmp	.loop
+
+.break:
+	pop SI
+	pop BX
+ret
+
+.HexNum : dw	0x0000
+.HexStr	: dw	'    '
+%undef StartLocation
+%undef ByteCount
+
+
 ; Prints out a 16-bit hex value.
 h16_toString:
 ; Arg - DX : Hex Num
@@ -56,23 +117,6 @@ h16_toString:
 	pop 	BP
 	pop 	BX
 %undef argStr
-ret
-
-
-; Print out an ASCII character.
-out_char:
-%define arg1	BP + 6
-	push	BX
-	push 	BP
-	mov	BP, SP
-
-	mov	AH, Video_TeleType
-	mov	AL, [arg1]
-int VideoService
-
-	pop	BP
-	pop	BX
-%undef arg1
 ret
 
 
