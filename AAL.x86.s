@@ -294,6 +294,11 @@
 ; DH = Head Number
 ; DL = Drive Number
 ; ES:BX = Pointer to Buffer
+; %define NumSectors	AL
+; %define TrackNum	CH
+; %define SectorNum	CL
+; %define HeadNum		DH
+; %define DriveNum	DL
 %define Disk_ReadIntoMemory	0x02
 
 ; Disk Services (Storage)
