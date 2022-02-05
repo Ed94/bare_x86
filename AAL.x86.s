@@ -304,6 +304,20 @@
 ; Disk Services (Storage)
 %define DiskService	0x13
 
+; Input
+
+%define Keyboard_GetKeyStroke	0x00
+
+%define KeyH_Enter	0x1C
+%define KeyL_Enter	0x0D
+
+%define KeyH_F		0x21
+%define KeyL_F		0x66
+%define KeyH_N		0x31
+%define KeyL_N		0x6E
+
+%define KeyboardService		0x16
+
 ; Memory
 
 ; Real Mode - Conventional Lower Memory
@@ -347,6 +361,18 @@
 %define VideoMode_Graphics_320x200		0x04
 %define VideoMode_Graphics_320x200_cboff	0x05
 %define VideoMode_Graphics_640x200		0x06
+%define VideoMode_Text_80x25_Mono		0x07
+%define VideoMode_Graphics_160x200		0x08
+%define VideoMode_Graphics_320x200_PCjr		0x09
+%define VideoMode_Graphics_320x200_PCjr		0x09
+%define VideoMode_Graphics_640x200_PCjr		0x0A
+%define VideoMode_Graphics_320x200_VGA		0x0D
+%define VideoMode_Graphics_640x200_VGA		0x0E
+%define VideoMode_Graphics_640x350_VGA_Mono	0x0F
+%define VideoMode_Graphics_640_350_VGA		0x10
+%define VideoMode_Graphics_640_480_VGA_Mono	0x11
+%define VideoMode_Graphics_640_480_VGA		0x12
+%define VideoMode_Graphics_320_200_VGA		0x13
 
 ; Output a character
 %define Video_TeleType		0xE
@@ -360,8 +386,8 @@
 %define char_CR	0xD	; Carriage Return
 %define char_LF 0xA	; Line Feed
 
+%define str_endl	char_LF, char_CR 
+
 
 %define AAL_x86_Def
 %endif
-
-

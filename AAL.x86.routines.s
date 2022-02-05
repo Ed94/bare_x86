@@ -27,8 +27,8 @@ out_Dump:
 	push 	SI
 	mov	AX, StartLocation
 	add	AX, SI
-Hex16_ToString	AX, .HexStr
-String_Out	.HexStr, 4
+	Hex16_ToString	AX, .HexStr
+	String_Out	.HexStr, 4
 	pop	SI
 	pop 	DX
 	pop	BX
@@ -43,16 +43,16 @@ Char_Out	' '
 	push 	BX
 	push 	DX
 	push 	SI
-Hex16_ToString	[.HexNum], .HexStr
-String_Out	.HexStr, 4
+	Hex16_ToString	[.HexNum], .HexStr
+	String_Out	.HexStr, 4
 	pop 	SI
 	pop 	DX
 	pop 	BX
-Char_Out	' '
+	Char_Out	' '
 
 	mov	AH, BIOS_Wait
 	mov	CX, 0x02
-int	SystemService
+	int	SystemService
 
 	inc	SI
 	jmp	.loop
@@ -145,7 +145,7 @@ out_string:
 	mov	BX, CX
 	mov	AL, [BX + SI]
 	xor	BH, BH			; Clear BH for correct active page
-int	VideoService
+	int	VideoService
 
 	add	SI, 0x1
 	jmp	.loop
